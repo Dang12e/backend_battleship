@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KMA BattleShip Demo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+
+    <!-- finding opponent -->
+    <div id="matchingPhase">
+      <h3>Tìm đối thủ</h3>
+      <input type="text" id="playerNameInput" placeholder="Enter your name" />
+      <button id="Search" onclick="Search">Find opponent</button>
+      <button id="CreateRoom" onclick="CreateRoom">Create Room</button>
+      <input type="text" id="RoomIDInput" placeholder="Enter Room ID to join" />
+      <button id="JoinRoom" onclick="JoinRoom">Join Room</button>
+    </div>
+    <!-- placement phase -->
+    <div id="placementPhase" class="hidden">
+      <h1 class="gametitle">BattleShip</h1>
+      <div>
+        <h3>Position your fleet</h3>
+        <div id="PlacementBoard" class="board"></div>
+      </div>
+      <button id="startButton">Finish</button>
+      <button id="return">Return</button>
+    </div>
+    <!-- gamephase -->
+    <div id="gamePhase" class="hidden">
+      <div id="play_boards">
+        <h3>Your Fleet</h3>
+        <h2 id="YourName"></h2>
+        <div id="YourBoard" class="board"></div>
+        <h3>Enemy Fleet</h3>
+        <h2 id="EnemyName"></h2>
+        <div id="EnemyBoard" class="board"></div>
+      </div>
+    </div>
+    <script>
+      const socket = io();
+    </script>
+    <script src="client.js"></script>
+  </body>
+</html>
