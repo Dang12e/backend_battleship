@@ -7,7 +7,7 @@ const plconnected = [];
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin: process.env.CLIENT_URL || "*",
     methods: ["GET", "POST"],
   },
 });
@@ -179,7 +179,7 @@ class Room {
           if (this.ships_info[1][index - 1].hp <= 0) {
             socket.emit(
               "EnemyshipDestroyed!",
-              this.ships_info[1][index - 1].name
+              this.ships_info[1][index - 1].name,
             );
             socket
               .to(socket.roomID)
@@ -225,7 +225,7 @@ class Room {
           if (this.ships_info[0][index - 1].hp <= 0) {
             socket.emit(
               "EnemyshipDestroyed!",
-              this.ships_info[0][index - 1].name
+              this.ships_info[0][index - 1].name,
             );
             socket
               .to(socket.roomID)
@@ -263,7 +263,7 @@ io.use((socket, next) => {
     connectedClients--;
     console.log("A connection attempt was denied.");
     console.log(
-      "Number of clients after denying connection: " + connectedClients
+      "Number of clients after denying connection: " + connectedClients,
     );
     return next(new Error("Server is full"));
   }
@@ -306,7 +306,7 @@ io.on("connection", (socket) => {
             " created with players: " +
             sockets[0].id +
             " and " +
-            sockets[1].id
+            sockets[1].id,
         );
         io.to(socket.roomID).emit("Room Joined", socket.roomID);
         io.to(socket.roomID).emit("placementPhase");
